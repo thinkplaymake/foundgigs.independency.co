@@ -1,0 +1,102 @@
+<html>
+
+
+    <head>
+        <title>found - tasty briefs for freelancers</title>
+        <style>
+            body { font-family: monospace; font-size: 18px }
+            .container { max-width: 900px; margin-left: 100px; }
+            h1 { margin-bottom: 0; margin-top: 100px;}
+            ol#gigs { list-style: none; padding: 0; margin: 0; margin-top: 100px;  }
+            .gig { padding: 0; margin: 0; margin-bottom: 50px; padding-bottom: 25px; border-bottom: 1px solid black; display: grid; grid-template-columns: 250px auto; }
+            .gig a { text-decoration: none;}
+            .gig .coverimage { width: 200px; height: 100px; background-size: contain; background-position: 50% 50%; }
+            .gig h2 { margin-top: 0; padding-top: 0; }
+            .footer { margin-top: 100px; font-size: 11px;}
+        </style>
+    </head>
+    <body>
+
+
+        <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+       
+        <script>
+           $(document).ready(function() {
+             
+              
+                recent_source = 'https://thinkplaymake.github.io/foundgigs.independency.co/recent.json';
+                 $.getJSON(recent_source, function(gigs) {
+
+
+                    $(gigs).each( function(i,gig){
+                        gig.since =   d = getRelativeTime(+new Date(gig.date_found));
+                        taglist = '#' + gig.tags.join(' #');
+                        
+                        h =  '<li class="gig">';
+                        h += '<a href="'+gig.url+'">'
+                        h += '<div class="coverimage" style="background-image:url('+gig.coverimage_url+');"></div>';
+                        h += '<div class="content">';
+                        h += '<h2>'+gig.title+'</h2>';
+                        h += '<p class="meta">found '+ gig.since;
+                        h += ' on <a href="'+gig.url+'">'+ gig.domain + '</a>';
+                        h += '</p>';
+                        h += '<p class="tags">'+ taglist + '</p>';
+                        h +='</div></a></li>';
+
+                        $('#gigs').append(h);
+                    });
+
+                    $('#gigs .loading').hide();
+                    return true;
+
+                    
+                 });
+              
+                 
+           });
+           var units = {
+            year  : 24 * 60 * 60 * 1000 * 365,
+            month : 24 * 60 * 60 * 1000 * 365/12,
+            day   : 24 * 60 * 60 * 1000,
+            hour  : 60 * 60 * 1000,
+            minute: 60 * 1000,
+            second: 1000
+            }
+
+            var rtf = new Intl.RelativeTimeFormat('en', { numeric: 'auto' })
+                var getRelativeTime = (d1, d2 = new Date()) => {
+                var elapsed = d1 - d2
+
+                // "Math.abs" accounts for both "past" & "future" scenarios
+                for (var u in units) 
+                    if (Math.abs(elapsed) > units[u] || u == 'second') 
+                    return rtf.format(Math.round(elapsed/units[u]), u)
+            }
+
+
+
+        </script>
+
+
+        <div class="container">
+            <h1>found</h1>
+            <div class="sub">
+                tasty briefs for freelancers.<br/>
+                <!--<a href="finders.html">wanna be a finder?</a><br/>-->
+                <!--<a href="features.html">wanna post a brief?</a><br/>-->
+            </div>
+
+            <ol id="gigs">
+                <div class="loading">loading ... </div>
+            </ol>
+        </div>
+
+        <div class="footer">
+            made by <a href="https//the.independency.co">the independency co.</a>
+        </div>
+
+
+
+    </body>
+
+</html>
