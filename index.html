@@ -24,7 +24,7 @@
            $(document).ready(function() {
              
               
-                recent_source = 'https://thinkplaymake.github.io/foundgigs.independency.co/recent.json';
+                recent_source = 'recent.json';
                  $.getJSON(recent_source, function(gigs) {
 
 
@@ -89,11 +89,14 @@
             <ol id="gigs">
                 <div class="loading">loading ... </div>
             </ol>
+
+
+            <div class="footer">
+                made by <a href="https://the.independency.co">the independency co.</a>
+            </div>
         </div>
 
-        <div class="footer">
-            made by <a href="https//the.independency.co">the independency co.</a>
-        </div>
+       
 
 
 
